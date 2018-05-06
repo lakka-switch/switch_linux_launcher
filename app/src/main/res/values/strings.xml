@@ -21,5 +21,4 @@
     <string name="missing_files_header">Missing files</string>
     <string name="missing_files_desc_header">Required files are missing.</string>
     <string name="missing_files_desc_shofel">Please place ShofEL2 payload files (cbfs.bin and coreboot.rom) in %s</string>
-    <string name="missing_files_desc_imx">Please place imx_usb_loader files in %s</string>
 </resources>

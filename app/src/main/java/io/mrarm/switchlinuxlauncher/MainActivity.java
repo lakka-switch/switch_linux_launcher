@@ -74,29 +74,21 @@ public class MainActivity extends AppCompatActivity {
                 hasShofelFiles = false;
         }
 
-        boolean hasImxFiles = FilePaths.getImxConfigPath(this).exists();
 
-        if (hasShofelFiles && hasImxFiles)
+        if (hasShofelFiles)
             return;
-        StringBuilder str = new StringBuilder();
-        str.append(getString(R.string.missing_files_desc_header));
-        if (!hasShofelFiles) {
-            str.append('\n');
-            str.append(getString(R.string.missing_files_desc_shofel, shofelDir.getAbsolutePath()));
-        }
-        if (!hasImxFiles) {
-            str.append('\n');
-            str.append(getString(R.string.missing_files_desc_imx, FilePaths.getImxDir(this)
-                    .getAbsolutePath()));
-        }
+        String str = getString(R.string.missing_files_desc_header) +
+                '\n' +
+                getString(R.string.missing_files_desc_shofel, shofelDir.getAbsolutePath());
+
 
         if (missingFilesDialog != null)
             missingFilesDialog.dismiss();
         missingFilesDialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.missing_files_header)
-                .setMessage(str.toString())
+                .setMessage(str)
                 .setPositiveButton(android.R.string.ok, null)
-                .setOnDismissListener((DialogInterface di) -> { missingFilesDialog = null; })
+                .setOnDismissListener((DialogInterface di) -> missingFilesDialog = null)
                 .show();
     }
 

@@ -10,12 +10,4 @@ public class FilePaths {
         return ctx.getExternalFilesDir("shofel2");
     }
 
-    public static File getImxDir(Context ctx) {
-        return ctx.getExternalFilesDir("imxusb");
-    }
-
-    public static File getImxConfigPath(Context ctx) {
-        return new File(getImxDir(ctx), "switch.conf");
-    }
-
 }

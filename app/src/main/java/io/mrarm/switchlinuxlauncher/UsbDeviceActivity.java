@@ -62,7 +62,7 @@ public class UsbDeviceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_usb_device);
 
         statusText = findViewById(R.id.status_text);
-        logger.addOutput((LogView) findViewById(R.id.log_view));
+        logger.addOutput(findViewById(R.id.log_view));
 
         usbManager = (UsbManager) getSystemService(USB_SERVICE);
         usbDevice = getIntent().getParcelableExtra(UsbManager.EXTRA_DEVICE);
@@ -128,8 +128,6 @@ public class UsbDeviceActivity extends AppCompatActivity {
         new Thread(() -> {
             if (DeviceType.isDeviceRCM(usbDevice))
                 runRCMExploit(connection);
-            if (DeviceType.isDeviceUBoot(usbDevice))
-                runUBootLoader(connection);
             connection.close();
         }).start();
     }
@@ -150,17 +148,6 @@ public class UsbDeviceActivity extends AppCompatActivity {
         }
         if (exploit != null)
             exploit.releaseInterface();
-    }
-
-    private void runUBootLoader(UsbDeviceConnection connection) {
-        log.i("Starting IMX USB Loader");
-        ImxUsbLoader loader = new ImxUsbLoader(logger, usbDevice, connection);
-        loader.claimInterface();
-        if (loader.load(FilePaths.getImxConfigPath(this).getAbsolutePath()))
-            onOperationSucceeded();
-        else
-            onOperationFailed();
-        loader.releaseInterface();
     }
 
     private synchronized void onOperationStarted() {
